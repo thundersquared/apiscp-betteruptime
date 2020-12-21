@@ -1,0 +1,21 @@
+{
+    "name": "thundersquared/apiscp-betteruptime",
+    "description": "BetterUptime integration on login form",
+    "type": "apiscp-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anatoli Nicolae",
+            "email": "an@thundersquared.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "sqrd\\": "src/sqrd"
+        }
+    },
+    "require": {},
+    "scripts": {
+        "post-update-cmd": "sqrd\\ApisCP\\Extensions\\BetterUptime::postUpdate"
+    }
+}
