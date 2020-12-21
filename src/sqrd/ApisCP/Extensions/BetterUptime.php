@@ -8,14 +8,6 @@ class BetterUptime
     const STATUS_APIKEY = EXTENSIONS_BETTERUPTIME_APIKEY;
     const STATUS_PAGE = EXTENSIONS_BETTERUPTIME_STATUS_PAGE;
 
-    public static function postUpdate(): void
-    {
-        mkdir('config/custom/apps/login/partials/', 755, true);
-        copy('src/sqrd/ApisCP/Extensions/views/status.blade.php', 'config/custom/apps/login/partials/status.blade.php');
-        copy('src/sqrd/ApisCP/Extensions/BetterUptime.php', 'config/custom/BetterUptime.php');
-        echo "You're good to go!";
-    }
-
     public function getStatusPage(): string
     {
         return static::STATUS_URL;

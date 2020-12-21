@@ -7,5 +7,5 @@ This extensions provides an implementation for ApisCP to fetch network status fr
 ```
 cd /usr/local/apnscp
 mkdir -p extensions
-git clone extensions/
+git clone https://github.com/thundersquared/apiscp-betteruptime.git extensions/apiscp-betteruptime
 ```
