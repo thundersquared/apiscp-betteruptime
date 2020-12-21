@@ -7,5 +7,6 @@
        href="{{ $monitor->getStatusPage() }}">
 		<span class="fa fa-circle mr-1 {{ $monitor->textByStatus() }}"></span>
         <span>Network Status</span>
+        <span>{{ $monitor->getStatusPage() }}</span>
     </a>
 </div>

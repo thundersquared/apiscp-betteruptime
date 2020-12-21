@@ -13,6 +13,11 @@ class BetterUptime
         return static::STATUS_URL;
     }
 
+    public function getStatusPageID(): string
+    {
+        return static::STATUS_PAGE;
+    }
+
     public function getNetworkStatus()
     {
         if (!static::STATUS_APIKEY || !static::STATUS_PAGE)
