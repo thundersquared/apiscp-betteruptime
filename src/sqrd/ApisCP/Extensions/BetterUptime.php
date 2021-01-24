@@ -48,7 +48,7 @@ class BetterUptime
         try
         {
             $dom = new DomDocument();
-            @$dom->loadHTML($res);
+            @$dom->loadHTML($body);
 
             $xpath = new DOMXpath($dom);
             $status = $xpath->query("//h1[contains(@class, 'status-page__title')]")->item(0)->textContent;
