@@ -1,83 +1,69 @@
 <?php declare(strict_types=1);
 
-namespace sqrd\ApisCP\Extensions\BetterUptime;
+namespace sqrd\ApisCP\Extensions;
+
+use Cache_Super_Global;
+use DOMDocument;
+use DOMXPath;
+use HTTP_Request2;
+use HTTP_Request2_Adapter_Curl;
 
 class BetterUptime
 {
     const STATUS_URL = MISC_SYS_STATUS;
-    const STATUS_APIKEY = EXTENSIONS_BETTERUPTIME_APIKEY;
-    const STATUS_PAGE = EXTENSIONS_BETTERUPTIME_STATUS_PAGE;
+    const STATUS_UNKNOWN = 'Unknown';
 
     public function getStatusPage(): string
     {
         return static::STATUS_URL;
     }
 
-    public function getStatusPageID(): string
+    protected function performRequest($url)
     {
-        return static::STATUS_PAGE;
+        $adapter = new HTTP_Request2_Adapter_Curl();
+        $req = new HTTP_Request2($url, HTTP_Request2::METHOD_GET, ['adapter' => $adapter]);
+        $resp = $req->send();
+        if ($resp->getStatus() !== 200) return false;
+        return $resp->getBody();
     }
 
     public function getNetworkStatus()
     {
-        if (!static::STATUS_APIKEY || !static::STATUS_PAGE)
+        if (!static::STATUS_URL)
         {
             return null;
         }
 
         $key = "sys.status";
-        $cache = \Cache_Super_Global::spawn();
+        $cache = Cache_Super_Global::spawn();
 
         if (false !== ($status = $cache->get($key)))
         {
             return $status;
         }
 
-        /* $url = sprintf('https://betteruptime.com/api/v2/status-pages/%d', static::STATUS_PAGE);
-        $adapter = new \HTTP_Request2_Adapter_Curl();
-        $req = new \HTTP_Request2($url, \HTTP_Request2::METHOD_GET, ['adapter' => $adapter]);
+        $body = $this->performRequest(static::STATUS_URL);
+        if ($body === false) return static::STATUS_UNKNOWN;
 
-        $resp = $req->send();
-        if ($resp->getStatus() !== 200)
+        try
         {
-            return true;
-        }
-        $body = json_decode($resp->getBody(), true);
-        $status = "Operational";
-        $marker = null;
-        foreach ($body['data'] as $d)
+            $dom = new DomDocument();
+            @$dom->loadHTML($res);
+
+            $xpath = new DOMXpath($dom);
+            $status = $xpath->query("//h1[contains(@class, 'status-page__title')]")->item(0)->textContent;
+
+            $cache->set($key, $status, 300);
+        } catch (\Exception $e)
         {
-            foreach ($d['enabled_components'] as $c)
-            {
-                $tmp = $c['status_name'];
-                if ($tmp !== "Operational")
-                {
-                    $status = $tmp;
-                    $marker = $c['description'] ? $c['description'] : $c['name'];
-                }
-            }
+            $status = static::STATUS_UNKNOWN;
         }
-        $status = array('status' => $status, 'marker' => $marker);
-        $cache->set($key, $status, 300); */
 
         return $status;
     }
 
     public function textByStatus($status)
     {
-        $status = str_replace(' ', '-', strtolower($status));
-        switch ($status)
-        {
-            case 'operational':
-                return 'text-success';
-            case 'major-outage':
-                return 'text-danger';
-            case 'partial-outage':
-                return 'text-warning';
-            case 'performance-issues':
-                return 'text-info';
-            default:
-                return 'text-muted';
-        }
+        return false !== strpos(strtolower($status), 'operational') ? 'text-success' : 'text-danger';
     }
 }

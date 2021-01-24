@@ -9,13 +9,13 @@
             "email": "an@thundersquared.com"
         }
     ],
+    "autoload": {
+        "psr-0": {
+            "sqrd\\Composer\\": "src/"
+        }
+    },
     "require": {},
     "scripts": {
-        "post-update-cmd": [
-            "php -r \"mkdir('/usr/local/apnscp/config/custom/apps/login/views/partials/', 755, true);\"",
-            "php -r \"copy('src/sqrd/ApisCP/Extensions/views/status.blade.php', '/usr/local/apnscp/config/custom/apps/login/views/partials/status.blade.php');\"",
-            "php -r \"copy('src/sqrd/ApisCP/Extensions/BetterUptime.php', '/usr/local/apnscp/config/custom/BetterUptime.php');\"",
-            "cd /usr/local/apnscp ; composer dumpautoload -o"
-        ]
+        "post-update-cmd": "sqrd\\Composer\\Hooks::postUpdate"
     }
 }

@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="32658b2a-9624-4462-9a49-f9f9cd74395f" name="Default Changelist" comment="" />
+    <list default="true" id="32658b2a-9624-4462-9a49-f9f9cd74395f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sqrd/Composer/Hooks.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/apiscp-betteruptime.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/apiscp-betteruptime.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sqrd/ApisCP/Extensions/BetterUptime.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/sqrd/ApisCP/Extensions/BetterUptime.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sqrd/ApisCP/Extensions/views/status.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/sqrd/ApisCP/Extensions/views/status.blade.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" doNotAsk="true">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+    </include_path>
+  </component>
   <component name="ProjectId" id="1lyqbxvglxGcBunpI7ZFuIlfIPG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -19,6 +39,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/sqrd" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -26,6 +47,9 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/sqrd" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/sqrd/ApisCP/Extensions" />
     </key>
@@ -38,7 +62,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608579753367</updated>
-      <workItem from="1608579754648" duration="3283000" />
+      <workItem from="1608579754648" duration="8934000" />
+      <workItem from="1608593883539" duration="651000" />
+      <workItem from="1608634829169" duration="1173000" />
+      <workItem from="1608652876722" duration="2216000" />
+      <workItem from="1611493359182" duration="738000" />
     </task>
     <servers />
   </component>

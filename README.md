@@ -1,6 +1,6 @@
-# BetterUptime integration for ApisCP
+# Better Uptime integration for ApisCP
 
-This extensions provides an implementation for ApisCP to fetch network status from BetterUptime.
+This extensions provides an implementation for ApisCP to fetch network status from Better Uptime.
 
 ## Install
 
