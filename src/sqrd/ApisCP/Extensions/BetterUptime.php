@@ -64,6 +64,6 @@ class BetterUptime
 
     public function textByStatus($status)
     {
-        return false !== strpos(strtolower($status), 'operational') ? 'text-success' : 'text-danger';
+        return false !== strpos(strtolower($status), 'online') ? 'text-success' : 'text-danger';
     }
 }
