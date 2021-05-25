@@ -27,7 +27,7 @@ class BetterUptime
         $request->setConfig('timeout', self::TIMEOUT);
         $response = $request->send();
         if ($response->getStatus() !== 200) return false;
-        return $resp->getBody();
+        return $response->getBody();
     }
 
     public function getNetworkStatus()
