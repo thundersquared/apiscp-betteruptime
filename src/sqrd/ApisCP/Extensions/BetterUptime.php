@@ -12,6 +12,7 @@ class BetterUptime
 {
     const STATUS_URL = MISC_SYS_STATUS;
     const STATUS_UNKNOWN = 'Unknown';
+    const TIMEOUT = 5;
 
     public function getStatusPage(): string
     {
@@ -21,9 +22,11 @@ class BetterUptime
     protected function performRequest($url)
     {
         $adapter = new HTTP_Request2_Adapter_Curl();
-        $req = new HTTP_Request2($url, HTTP_Request2::METHOD_GET, ['adapter' => $adapter]);
-        $resp = $req->send();
-        if ($resp->getStatus() !== 200) return false;
+        $request = new HTTP_Request2($url, HTTP_Request2::METHOD_GET, ['adapter' => $adapter]);
+        $request->setConfig('connect_timeout', self::TIMEOUT);
+        $request->setConfig('timeout', self::TIMEOUT);
+        $response = $request->send();
+        if ($response->getStatus() !== 200) return false;
         return $resp->getBody();
     }
 
@@ -42,11 +45,11 @@ class BetterUptime
             return $status;
         }
 
-        $body = $this->performRequest(static::STATUS_URL);
-        if ($body === false) return static::STATUS_UNKNOWN;
-
         try
         {
+            $body = $this->performRequest(static::STATUS_URL);
+            if ($body === false) return static::STATUS_UNKNOWN;
+
             $dom = new DomDocument();
             @$dom->loadHTML($body);
 
