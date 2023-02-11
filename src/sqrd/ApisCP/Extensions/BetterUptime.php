@@ -13,21 +13,11 @@ class BetterUptime
     const STATUS_URL = MISC_SYS_STATUS;
     const STATUS_UNKNOWN = 'Unknown';
     const TIMEOUT = 5;
+    const CACHE_KEY = 'sys.status';
 
     public function getStatusPage(): string
     {
         return static::STATUS_URL;
-    }
-
-    protected function performRequest($url)
-    {
-        $adapter = new HTTP_Request2_Adapter_Curl();
-        $request = new HTTP_Request2($url, HTTP_Request2::METHOD_GET, ['adapter' => $adapter]);
-        $request->setConfig('connect_timeout', self::TIMEOUT);
-        $request->setConfig('timeout', self::TIMEOUT);
-        $response = $request->send();
-        if ($response->getStatus() !== 200) return false;
-        return $response->getBody();
     }
 
     public function getNetworkStatus()
@@ -37,10 +27,9 @@ class BetterUptime
             return null;
         }
 
-        $key = "sys.status";
         $cache = Cache_Super_Global::spawn();
 
-        if (false !== ($status = $cache->get($key)))
+        if (false !== ($status = $cache->get(self::CACHE_KEY)))
         {
             return $status;
         }
@@ -54,9 +43,9 @@ class BetterUptime
             @$dom->loadHTML($body);
 
             $xpath = new DOMXpath($dom);
-            $status = $xpath->query("//h1[contains(@class, 'status-page__title')]")->item(0)->textContent;
+            $status = trim($xpath->query('//h1')->item(0)->textContent);
 
-            $cache->set($key, $status, 300);
+            $cache->set(self::CACHE_KEY, $status, 300);
         } catch (\Exception $e)
         {
             $status = static::STATUS_UNKNOWN;
@@ -65,8 +54,19 @@ class BetterUptime
         return $status;
     }
 
-    public function textByStatus($status)
+    protected function performRequest($url)
     {
-        return false !== strpos(strtolower($status), 'online') ? 'text-success' : 'text-danger';
+        $adapter = new HTTP_Request2_Adapter_Curl();
+        $request = new HTTP_Request2($url, HTTP_Request2::METHOD_GET, ['adapter' => $adapter]);
+        $request->setConfig('connect_timeout', self::TIMEOUT);
+        $request->setConfig('timeout', self::TIMEOUT);
+        $response = $request->send();
+        if ($response->getStatus() !== 200) return false;
+        return $response->getBody();
+    }
+
+    public function textByStatus(?string $status): string
+    {
+        return false !== strpos(strtolower($status ?: 'error'), 'online') ? 'text-success' : 'text-danger';
     }
 }
